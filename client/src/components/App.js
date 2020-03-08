@@ -6,7 +6,8 @@ import LandingPage from "./views/LandingPage/LandingPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import NavBar from "./views/NavBar/NavBar";
-import Footer from "./views/Footer/Footer"
+import Footer from "./views/Footer/Footer";
+import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           <Route exact path="/" component={Auth(LandingPage, null)} />
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
+          <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />
+          {/* upload page 는 아무나 들어올 수 없음, 로그인 한 유저만 가능 true */}
         </Switch>
       </div>
       <Footer />
