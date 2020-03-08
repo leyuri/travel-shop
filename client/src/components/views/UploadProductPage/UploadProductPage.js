@@ -1,9 +1,42 @@
-import React from 'react'
-import { Button, Form, Input} from 'antd';
+import React, {useState} from 'react'
+import { Typography, Button, Form, message, Input, Icon } from 'antd';
 
+const { Title } = Typography;
 const { TextArea } = Input;
+const Continents = [
+    { key: 1, value: "Africa" },
+    { key: 2, value: "Europe" },
+    { key: 3, value: "Asia" },
+    { key: 4, value: "North America" },
+    { key: 5, value: "South America" },
+    { key: 6, value: "Australia" },
+    { key: 7, value: "Antarctica" }
+]
+
 
 function UploadProductPage() {
+
+    const [TitleValue, setTitleValue] = useState("")
+    const [DescriptionValue, setDescriptionValue] = useState("")
+    const [PriceValue, setPriceValue] = useState(0)
+    const [ContinentValue, setContinentValue] = useState(1)
+
+    const onTitleChange = (e) => {
+        setTitleValue(e.currentTarget.value)
+    }
+
+
+    const onDescriptionChange = (e) => {
+        setDescriptionValue(e.currentTarget.value)
+    }
+
+    const onPriceChange = (e) => {
+        setPriceValue(e.currentTarget.value)
+    }
+
+    const onContinentsSelectChange = (e) => {
+        setContinentValue(e.currentTarget.value)
+    }
     return (
         <div style={{ maxWidth:'700px', margin:'2rem auto' }}>
             <div style={{ fontFamily: 'monospace',textAlign: 'center', marginBottom:'2rem', fontWeight: '1000'}}>
@@ -13,7 +46,7 @@ function UploadProductPage() {
                     모노스페이스(monospace) - 글자들의 너비가 동일한 서체, 코딩 작업 등에 주로 사용.
                     커시브(cursive) - 필기체.
                     판타지(fantasy) - 장식이 많은 서체, 제목 같은 일부 영역에 유용. */}
-                <h2> Upload Travel Product</h2>
+                <Title level={2}> Upload Travel Product</Title>
             </div>
 
 
@@ -26,30 +59,29 @@ function UploadProductPage() {
                 <br />
                 <label>Title</label>
                 <Input
-                    onChange
-                    value
+                    onChange={onTitleChange}
+                    value={TitleValue}
                 />
                 <br />
                 <br />
                 <label>Description</label>
                 <TextArea
-                    onChange
-                    value
+                    onChange={onDescriptionChange}
+                    value={DescriptionValue}
                 />
                 <br />
                 <br />
                 <label>Price($)</label>
                 <Input
-                    onChange
-                    value
+                    onChange={onPriceChange}
+                    value={PriceValue}
                     type="number"
                 />
                 <br /><br />
-                <select>
-                    <option key value>
-
-                    </option>
-               
+                <select onChange={onContinentsSelectChange}>
+                {Continents.map(item => (
+                        <option key={item.key} value={item.key}>{item.value} </option>
+                    ))}
                 </select>
                 <br />
                 <br />
