@@ -11,24 +11,53 @@ function LandingPage() {
 
     const [Products, setProducts] = useState([])
 
+    const [Skip, setSkip] = useState(0)
+
+    const [Limit, setLimit] = useState(8)
+
+    const [PostSize, setPostSize] = useState(0)
+
+    //PostSize = 8 일 때 we neet to show load more button
 
     useEffect(() => {
 
-        Axios.post('/api/product/getProducts')
+        const variables = {
+            skip: Skip,
+            limit: Limit,
+        }
+
+        getProducts(variables)
+    }, [])
+
+    const getProducts = (variables) => {
+        Axios.post('/api/product/getProducts', variables)
         .then(response => {
-            if(response.data.success) {
-
-                setProducts(response.data.products)
-                console.log(response.data.products)
-
+            if (response.data.success) {
+                if (variables.loadMore) {
+                    setProducts([...Products, ...response.data.products])
+                } else {
+                    setProducts(response.data.products)
+                }
+                setPostSize(response.data.postSize)
             } else {
                 alert('Failed to fectch product datas')
             }
         })
 
+    }
 
 
-    }, [])
+    const onLoadMore = () => {
+        let skip = Skip + Limit;
+
+        const variables = {
+            skip: skip,
+            limit: Limit
+        }
+
+        getProducts(variables)
+
+    }
 
     const renderCards = Products.map((product, index) => {
 
@@ -76,11 +105,12 @@ function LandingPage() {
             }
             <br /><br />
 
-
+            {PostSize >= Limit &&
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <button onClick >Load More</button>
+                    <button onClick={onLoadMore}>Load More</button>
                 </div>
-    
+            }
+
         </div>
     )
 }
