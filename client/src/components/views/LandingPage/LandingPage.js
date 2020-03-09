@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Axios from 'axios';
 import { Icon, Col, Card, Row } from 'antd';
 import ImageSlider from '../../utils/ImageSlider';
+import CheckBox from './Sections/CheckBox';
+
 
 
 const { Meta } = Card;
@@ -86,6 +88,7 @@ function LandingPage() {
 
 
             {/* Filter  */}
+            <CheckBox/>
 
             <Row gutter={[16, 16]}>
                 {Products.map((product, index)=> {})}
