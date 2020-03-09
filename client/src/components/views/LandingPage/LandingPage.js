@@ -27,37 +27,38 @@ function LandingPage() {
         }
 
         getProducts(variables)
+
     }, [])
 
     const getProducts = (variables) => {
         Axios.post('/api/product/getProducts', variables)
-        .then(response => {
-            if (response.data.success) {
-                if (variables.loadMore) {
-                    setProducts([...Products, ...response.data.products])
+            .then(response => {
+                if (response.data.success) {
+                    if (variables.loadMore) {
+                        setProducts([...Products, ...response.data.products])
+                    } else {
+                        setProducts(response.data.products)
+                    }
+                    setPostSize(response.data.postSize)
                 } else {
-                    setProducts(response.data.products)
+                    alert('Failed to fectch product datas')
                 }
-                setPostSize(response.data.postSize)
-            } else {
-                alert('Failed to fectch product datas')
-            }
-        })
-
+            })
     }
-
 
     const onLoadMore = () => {
         let skip = Skip + Limit;
 
         const variables = {
             skip: skip,
-            limit: Limit
+            limit: Limit,
+            loadMore: true
+
         }
-
         getProducts(variables)
-
+        setSkip(skip)
     }
+
 
     const renderCards = Products.map((product, index) => {
 
