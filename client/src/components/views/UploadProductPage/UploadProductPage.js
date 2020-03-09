@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
-import FileUpload from '../../utils/FileUpload';
+import FileUpload from '../../utils/FileUpload'
 import Axios from 'axios';
-import { response } from 'express';
 
 const { Title } = Typography;
 const { TextArea } = Input;
+
 const Continents = [
     { key: 1, value: "Africa" },
     { key: 2, value: "Europe" },
@@ -17,6 +17,7 @@ const Continents = [
 ]
 
 
+
 function UploadProductPage(props) {
 
     const [TitleValue, setTitleValue] = useState("")
@@ -26,31 +27,34 @@ function UploadProductPage(props) {
 
     const [Images, setImages] = useState([])
 
-    const onTitleChange = (e) => {
-        setTitleValue(e.currentTarget.value)
+
+    const onTitleChange = (event) => {
+        setTitleValue(event.currentTarget.value)
     }
 
-
-    const onDescriptionChange = (e) => {
-        setDescriptionValue(e.currentTarget.value)
+    const onDescriptionChange = (event) => {
+        setDescriptionValue(event.currentTarget.value)
     }
 
-    const onPriceChange = (e) => {
-        setPriceValue(e.currentTarget.value)
+    const onPriceChange = (event) => {
+        setPriceValue(event.currentTarget.value)
     }
 
-    const onContinentsSelectChange = (e) => {
-        setContinentValue(e.currentTarget.value)
+    const onContinentsSelectChange = (event) => {
+        setContinentValue(event.currentTarget.value)
     }
 
     const updateImages = (newImages) => {
-
-        console.log(newImages)
         setImages(newImages)
     }
+    const onSubmit = (event) => {
+        event.preventDefault();
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+
+        if (!TitleValue || !DescriptionValue || !PriceValue ||
+            !ContinentValue || !Images) {
+            return alert('fill all the fields first!')
+        }
 
         const variables = {
             writer: props.user.userData._id,
@@ -58,22 +62,20 @@ function UploadProductPage(props) {
             description: DescriptionValue,
             price: PriceValue,
             images: Images,
-            continents: Continents
-
+            continents: ContinentValue,
         }
+
         Axios.post('/api/product/uploadProduct', variables)
-        .then(response => {
-            if(response.data.success) {
+            .then(response => {
+                if (response.data.success) {
+                    alert('Product Successfully Uploaded')
+                    props.history.push('/')
+                } else {
+                    alert('Failed to upload Product')
+                }
+            })
 
-            }else {
-                alert('Failed to upload Product')
-            }
-        })
     }
-
-
-
-
 
     return (
         <div style={{ maxWidth:'700px', margin:'2rem auto' }}>
@@ -87,13 +89,11 @@ function UploadProductPage(props) {
                 <Title level={2}> Upload Travel Product</Title>
             </div>
 
-
             <Form onSubmit={onSubmit} >
 
                 {/* DropZone */}
-
-                
                 <FileUpload refreshFunction={updateImages} />
+
                 <br />
                 <br />
                 <label>Title</label>
@@ -118,7 +118,7 @@ function UploadProductPage(props) {
                 />
                 <br /><br />
                 <select onChange={onContinentsSelectChange}>
-                {Continents.map(item => (
+                    {Continents.map(item => (
                         <option key={item.key} value={item.key}>{item.value} </option>
                     ))}
                 </select>
@@ -126,7 +126,8 @@ function UploadProductPage(props) {
                 <br />
 
                 <Button
-                    onClick={onSubmit}>
+                    onClick={onSubmit}
+                >
                     Submit
                 </Button>
 

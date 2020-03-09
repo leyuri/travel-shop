@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const { Product } = require("../models/Product");
 
 const { auth } = require("../middleware/auth");
 
@@ -38,8 +39,17 @@ router.post("/uploadImage", auth, (req, res) => {
 
 });
 
+router.post("/uploadProduct", auth, (req, res) => {
 
+    //클라이언트에서 받은 정보들 몽고디비에 저장
+    const product = new Product(req.body)
 
+    product.save((err) => {
+        if (err) returnres.status(400).json({ success: false, err })
+        return res.status(200).json({ success: true })
+    })
+
+});
 
 
 module.exports = router;
