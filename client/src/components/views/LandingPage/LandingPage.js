@@ -4,6 +4,7 @@ import { Icon, Col, Card, Row } from 'antd';
 import ImageSlider from '../../utils/ImageSlider';
 import CheckBox from './Sections/CheckBox';
 import { continents, price } from './Sections/Datas';
+import RadioBox from './Sections/RadioBox';
 
 
 
@@ -129,6 +130,8 @@ function LandingPage() {
                 handleFilters={filters => handleFilters(filters, "continents")}
             
             />
+
+            <RadioBox />
 
             <Row gutter={[16, 16]}>
                 {Products.map((product, index)=> {})}
