@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { Icon, Col, Card, Row } from 'antd';
 import ImageSlider from '../../utils/ImageSlider';
 import CheckBox from './Sections/CheckBox';
+import { continents, price } from './Sections/Datas';
 
 
 
@@ -20,6 +21,12 @@ function LandingPage() {
     const [PostSize, setPostSize] = useState(0)
 
     //PostSize = 8 일 때 we neet to show load more button
+
+    const [Filters, setFilters] = useState({
+        continents: [],
+        price: []
+    })
+
 
     useEffect(() => {
 
@@ -78,6 +85,35 @@ function LandingPage() {
         </Col>
     })
 
+    const showFilteredResults = (filters) => {
+
+        const variables = {
+            skip: 0,
+            limit: Limit,
+            filters: filters
+
+        }
+        getProducts(variables)
+        setSkip(0)
+
+    }
+
+
+    const handleFilters = (filters, category) => {
+
+        const newFilters = { ...Filters }
+
+        newFilters[category] = filters
+
+        if (category === "price") {
+
+        }
+
+        console.log(newFilters)
+
+        showFilteredResults(newFilters)
+        setFilters(newFilters)
+    }
 
 
     return (
@@ -88,7 +124,11 @@ function LandingPage() {
 
 
             {/* Filter  */}
-            <CheckBox/>
+            <CheckBox
+                list={continents}
+                handleFilters={filters => handleFilters(filters, "continents")}
+            
+            />
 
             <Row gutter={[16, 16]}>
                 {Products.map((product, index)=> {})}
@@ -118,5 +158,6 @@ function LandingPage() {
         </div>
     )
 }
+
 
 export default LandingPage
