@@ -142,7 +142,11 @@ function LandingPage() {
             </div>
 
 
-            {/* Filter  */}
+            {/* Search  */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem auto' }}>
+
+            <SearchFeature />
+            </div>
 
             <Row gutter={[16, 16]}>
 
@@ -176,9 +180,8 @@ function LandingPage() {
 
 
 
-            {/* Search  */}
 
-            <SearchFeature />
+
 
 
             {Products.length === 0 ?

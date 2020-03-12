@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Input } from 'antd';
 
-function SearchFeature() {
+const { Search } = Input;
+
+function SearchFeature(props) {
+
+
+
     return (
         <div>
-            SearchFeature
+            <Search
+                value
+                onChange
+                placeholder="Search By Typing..."
+            />
         </div>
     )
 }
