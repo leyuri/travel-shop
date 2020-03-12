@@ -10,6 +10,8 @@ function SearchFeature(props) {
 
     const onChangeSearch = (e) => {
         setSearchTerms(e.currentTarget.value)
+
+        props.refreshFunction(e.currentTarget.value)
     }
 
 

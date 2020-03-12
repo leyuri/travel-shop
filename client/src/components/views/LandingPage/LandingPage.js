@@ -24,6 +24,8 @@ function LandingPage() {
 
     //PostSize = 8 일 때 we neet to show load more button
 
+    const [SearchTerms, setSearchTerms] = useState("")
+
     const [Filters, setFilters] = useState({
         continents: [],
         price: []
@@ -134,6 +136,13 @@ function LandingPage() {
         setFilters(newFilters)
     }
 
+    const updateSearchTerms = (newSearchTerm) => {
+        setSearchTerms(newSearchTerm)
+    }
+
+
+
+
 
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
@@ -142,10 +151,13 @@ function LandingPage() {
             </div>
 
 
-            {/* Search  */}
+       
             <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem auto' }}>
 
-            <SearchFeature />
+            <SearchFeature 
+            refreshFunction={updateSearchTerms}
+            
+            />
             </div>
 
             <Row gutter={[16, 16]}>
