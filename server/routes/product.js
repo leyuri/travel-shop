@@ -76,9 +76,15 @@ router.post("/getProducts", (req, res) => {
     }
 
     console.log(findArgs)
+    // {continents: Array(1), price: Array(2)}
+    // continents: [1]
+    // price: (2) [250, 279]
+    // __proto__: Object
 
-
-
+    // {continents: Array(2), price: Array(2)}
+    // continents: (2) [2, 3]
+    // price: (2) [200, 249]
+    // __proto__: Object
     Product.find(findArgs)
     .populate("writer")
     .sort([[sortBy, order]])

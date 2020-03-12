@@ -5,6 +5,7 @@ import ImageSlider from '../../utils/ImageSlider';
 import CheckBox from './Sections/CheckBox';
 import { continents, price } from './Sections/Datas';
 import RadioBox from './Sections/RadioBox';
+import SearchFeature from './Sections/SearchFeature';
 
 
 
@@ -176,6 +177,8 @@ function LandingPage() {
 
 
             {/* Search  */}
+
+            <SearchFeature />
 
 
             {Products.length === 0 ?
