@@ -6,12 +6,18 @@ const { Search } = Input;
 function SearchFeature(props) {
 
 
+    const [SearchTerms, setSearchTerms] = useState("")
+
+    const onChangeSearch = (e) => {
+        setSearchTerms(e.currentTarget.value)
+    }
+
 
     return (
         <div>
             <Search
-                value
-                onChange
+                value={SearchTerms}
+                onChange={onChangeSearch}
                 placeholder="Search By Typing..."
             />
         </div>
