@@ -47,6 +47,18 @@ productSchema.index({
     }
 })
 
+//searchFeature로 title과 description을 사용함
+productSchema.index({ 
+    title:'text',
+    description: 'text',
+}, {
+    weights: {
+        title: 5,
+        description: 1,
+    }
+    //description보다 title 에 중점을..
+})
+
 const Product = mongoose.model('Product', productSchema);
 
 module.exports = { Product }
