@@ -60,6 +60,7 @@ router.post("/getProducts", (req, res) => {
     let skip = parseInt(req.body.skip);
 
     let findArgs = {};
+    let term = req.body.searchTerm;
 
     for (let key in req.body.filters) {
 
@@ -85,15 +86,32 @@ router.post("/getProducts", (req, res) => {
     // continents: (2) [2, 3]
     // price: (2) [200, 249]
     // __proto__: Object
-    Product.find(findArgs)
-    .populate("writer")
-    .sort([[sortBy, order]])
-    .skip(skip)
-    .limit(limit)
-    .exec((err, products) => {
-        if (err) return res.status(400).json({ success: false, err })
-        res.status(200).json({ success: true, products, postSize: products.length })
-   })
+
+
+    if (term) {
+        Product.find(findArgs)
+            .find({ $text: { $search: term } })
+            //몽고디비로부터
+            .populate("writer")
+            .sort([[sortBy, order]])
+            .skip(skip)
+            .limit(limit)
+            .exec((err, products) => {
+                if (err) return res.status(400).json({ success: false, err })
+                res.status(200).json({ success: true, products, postSize: products.length })
+            })
+    } else {
+        Product.find(findArgs)
+            .populate("writer")
+            .sort([[sortBy, order]])
+            .skip(skip)
+            .limit(limit)
+            .exec((err, products) => {
+                if (err) return res.status(400).json({ success: false, err })
+                res.status(200).json({ success: true, products, postSize: products.length })
+            })
+    }
+
 
 
 });

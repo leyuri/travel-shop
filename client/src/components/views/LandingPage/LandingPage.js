@@ -137,9 +137,20 @@ function LandingPage() {
     }
 
     const updateSearchTerms = (newSearchTerm) => {
-        setSearchTerms(newSearchTerm)
-    }
 
+        const variables = {
+            skip: 0,
+            limit: Limit,
+            filters: Filters,
+            searchTerm: newSearchTerm
+        }
+
+        setSkip(0)
+                //무언가 입력되었을 때 모든 것이 리로드 되어야 하기 때문
+        setSearchTerms(newSearchTerm)
+
+        getProducts(variables)
+    }
 
 
 
