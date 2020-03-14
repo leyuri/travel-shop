@@ -116,5 +116,31 @@ router.post("/getProducts", (req, res) => {
 
 });
 
+//?id=${productId}&type=single
+//id=12121212,121212,1212121   type=array 
+router.get("/products_by_id", (req, res) => {
+    let type = req.query.type
+    //type=single 이것을 사용하기 있기 때문에
+    let productIds = req.query.id
+
+    if (type === "array") {
+
+    }
+
+    //우리는 제품 ID에 속하는 제품 정보를 찾아야 함
+    Product.find({ '_id': { $in: productIds } })
+    //in, input,,찾는 거
+    .populate('writer')
+    .exec((err, product) => {
+        if(err) return req.status(400).send(err)
+        return res.status(200).send(product)
+    })
+});
+
+
+
+
+
+
 
 module.exports = router;
