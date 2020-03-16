@@ -9,7 +9,7 @@ import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
-import CartPage from './views/CartPage/CartPage'
+import CartPage from "./views/CartPage/CartPage";
 
 
 
