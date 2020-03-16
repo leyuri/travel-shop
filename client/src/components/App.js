@@ -9,6 +9,7 @@ import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
+import CartPage from './views/CartPage/CartPage'
 
 
 
@@ -25,6 +26,7 @@ function App() {
           {/* upload page 는 아무나 들어올 수 없음, 로그인 한 유저만 가능 true */}
           <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
           {/* 회원만 디테일 페이지 접속 가능 */}
+          <Route exact path="/user/cart" component={Auth(CartPage, true)} />
         </Switch>
       </div>
       <Footer />
