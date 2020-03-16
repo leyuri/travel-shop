@@ -13,7 +13,10 @@ function ProductInfo(props) {
     
     }, [props.detail])
 
-
+    const addToCarthandler = () => {
+        props.addToCart(props.detail._id)
+    }
+//클릭하면 parent component인 DetailProductPage로 가게 한다
 
     return (
         <div>
@@ -28,8 +31,8 @@ function ProductInfo(props) {
             <br />
             <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button size="large" shape="round" type="danger"
-                    onClick
+            <Button size="large" shape="round" type="danger"
+                    onClick={addToCarthandler}
                 >
                     Add to Cart
                     </Button>
