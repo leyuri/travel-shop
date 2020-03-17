@@ -8,6 +8,8 @@ function CartPage(props) {
 
     const dispatch = useDispatch();
 
+    const [Total, setTotal] = useState(0)
+
     useEffect(() => {
 
         let cartItems = [];
@@ -23,6 +25,28 @@ function CartPage(props) {
 
     }, [props.user.userData])
 
+
+    useEffect(() => {
+
+        if(props.user.cartDetail && props.user.cartDetail.length > 0) {
+            calculateTotal(props.user.cartDetail)
+
+        }
+  
+    }, [props.user.cartDetail])
+
+    const calculateTotal = (cartDetail) => {
+        let total = 0;
+
+        cartDetail.map(item => {
+            total += parseInt(item.price, 10) * item.quantity
+            //문자를 십진수로 변환
+        });
+
+        setTotal(total)
+    }
+
+
     return (
         <div style={{ width: '85%', margin: '3rem auto' }}>
             <h1>My Cart</h1>
@@ -34,7 +58,7 @@ function CartPage(props) {
             />
 
             <div style={{ marginTop: '3rem' }}>
-                <h2>Total amount: $ </h2>
+                <h2>Total amount: ${Total} </h2>
             </div>
 
             <Result
