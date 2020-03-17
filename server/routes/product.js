@@ -124,7 +124,11 @@ router.get("/products_by_id", (req, res) => {
     let productIds = req.query.id
 
     if (type === "array") {
-
+        let ids = req.query.id.split(',');
+        productIds = [];
+        productIds = ids.map(item => {
+            return item
+        })
     }
 
     //우리는 제품 ID에 속하는 제품 정보를 찾아야 함
