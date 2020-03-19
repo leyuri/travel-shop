@@ -14,6 +14,8 @@ function CartPage(props) {
     const dispatch = useDispatch();
 
     const [Total, setTotal] = useState(0)
+    const [ShowTotal, setShowTotal] = useState(false)
+    const [ShowSuccess, setShowSuccess] = useState(false)
 
     useEffect(() => {
 
@@ -49,6 +51,7 @@ function CartPage(props) {
         });
 
         setTotal(total)
+        setShowTotal(true)
     }
 
     const removeFromCart = (productId) => {
@@ -60,7 +63,7 @@ function CartPage(props) {
                     .then(response => {
                         if (response.data.success) {
                             if (response.data.cartDetail.length <= 0) {
-                     
+                                setShowTotal(false)
                             } else {
                                 calculateTotal(response.data.cartDetail)
                             }
@@ -82,23 +85,26 @@ function CartPage(props) {
              removeItem={removeFromCart}
             
             />
+            {ShowTotal ?
+                <div style={{ marginTop: '3rem' }}>
+                    <h2>Total amount: ${Total} </h2>
+                </div>
+                :
+                ShowSuccess ?
 
-            <div style={{ marginTop: '3rem' }}>
-                <h2>Total amount: ${Total} </h2>
-            </div>
-
-            <Result
-                status="success"
-                title="Successfully Purchased Items"
-            /> :
-            <div style={{
-                width: '100%', display: 'flex', flexDirection: 'column',
-                justifyContent: 'center'
-            }}>
-                <br />
-                <Empty description={false} />
-                <p>No Items In the Cart</p>
-            </div>
+                <Result
+                    status="success"
+                    title="Successfully Purchased Items"
+                /> :
+                <div style={{
+                    width: '100%', display: 'flex', flexDirection: 'column',
+                    justifyContent: 'center'
+                }}>
+                    <br />
+                    <Empty description={false} />
+                    <p>No Items In the Cart</p>
+                </div>
+            }
         </div>
     )
 }
