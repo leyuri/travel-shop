@@ -8,6 +8,7 @@ import {
 import UserCardBlock from './Sections/UserCardBlock';
 import { Result, Empty } from 'antd';
 import Axios from 'axios';
+import Paypal from '../../utils/Paypal';
 
 function CartPage(props) {
 
@@ -105,7 +106,14 @@ function CartPage(props) {
                     <p>No Items In the Cart</p>
                 </div>
             }
+
+                    {/*paypal button */ }
+                <Paypal />
         </div>
+
+    
+
+
     )
 }
 
