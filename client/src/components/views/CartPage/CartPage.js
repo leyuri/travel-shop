@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import {getCartItems} from '../../../_actions/user_actions';
+import { 
+    getCartItems, 
+    removeCartItem 
+
+} from '../../../_actions/user_actions';
 import UserCardBlock from './Sections/UserCardBlock';
 import { Result, Empty } from 'antd';
+import Axios from 'axios';
 
 function CartPage(props) {
 
@@ -46,14 +51,35 @@ function CartPage(props) {
         setTotal(total)
     }
 
+    const removeFromCart = (productId) => {
+        //UserCardBlock에서 온 productId
+        dispatch(removeCartItem(productId))
+            .then(() => {
+
+                Axios.get('/api/users/userCartInfo')
+                    .then(response => {
+                        if (response.data.success) {
+                            if (response.data.cartDetail.length <= 0) {
+                     
+                            } else {
+                                calculateTotal(response.data.cartDetail)
+                            }
+                        } else {
+                            alert('Failed to get cart info')
+                        }
+                    })
+            })
+    }
+
 
     return (
         <div style={{ width: '85%', margin: '3rem auto' }}>
             <h1>My Cart</h1>
 
             <UserCardBlock 
-            
+
              products={props.user.cartDetail}
+             removeItem={removeFromCart}
             
             />
 
