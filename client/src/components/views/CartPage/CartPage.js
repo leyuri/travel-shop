@@ -75,6 +75,40 @@ function CartPage(props) {
             })
     }
 
+    const transactionSuccess = (data) => {
+
+        let variables = {
+            cartDetail: props.user.cartDetail, paymentData: data
+        }
+
+        Axios.post('/api/users/successBuy', variables)
+            .then(response => {
+                if (response.data.success) {
+                    setShowSuccess(true)
+                    setShowTotal(false)
+
+                    dispatch(onSuccessBuy({
+                        cart: response.data.cart,
+                        cartDetail: response.data.cartDetail
+                    }))
+
+                } else {
+                    alert('Failed to buy it')
+                }
+            })
+
+    }
+
+
+    const transactionError = () => {
+        console.log('Paypal error')
+    }
+
+    const transactionCanceled = () => {
+        console.log('Transaction canceled')
+    }
+
+
 
     return (
         <div style={{ width: '85%', margin: '3rem auto' }}>
@@ -108,7 +142,12 @@ function CartPage(props) {
             }
 
                     {/*paypal button */ }
-                <Paypal />
+                <Paypal 
+                    toPay={Total}
+                    onSuccess={transactionSuccess}
+                    transactionError={transactionError}
+                    transactionCanceled={transactionCanceled}
+                />
         </div>
 
     
