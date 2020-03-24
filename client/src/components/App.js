@@ -11,6 +11,7 @@ import UploadProductPage from "./views/UploadProductPage/UploadProductPage";
 import DetailProductPage from "./views/DetailProductPage/DetailProductPage";
 import CartPage from "./views/CartPage/CartPage";
 import HistoryPage from "./views/HistoryPage/HistoryPage"
+import ReviewPage from "./views/ReviewPage/ReviewPage"
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
           <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
           {/* 회원만 디테일 페이지 접속 가능 */}
           <Route exact path="/user/cart" component={Auth(CartPage, true)} />
-          <Route exact path="/history" component={Auth(HistoryPage, true)} />
+          <Route exact path="/review" component={Auth(ReviewPage, true)} />
           {/* 로그인 된 회원만 히스토리 화면 접속 가능 */}
         </Switch>
       </div>
