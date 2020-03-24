@@ -37,6 +37,11 @@ function FileUpload(props) {
         props.refreshFunction(newImages)
     }
 
+    let src= process.env.NODE_ENV === 'development' ? 
+    `http://localhost:5000/${image}`
+    : `https://salty-badlands-71011.herokuapp.com/${image}`
+
+
 
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -63,7 +68,7 @@ function FileUpload(props) {
 
                 {Images.map((image, index) => (
                         <div onClick={() => onDelete(image)}>
-                            <img style={{ minWidth: '300px', width: '300px', height: '240px' }} src={`http://localhost:5000/${image}`} alt={`productImg-${index}`} />
+                            <img style={{ minWidth: '300px', width: '300px', height: '240px' }} src={src} alt={`productImg-${index}`} />
                         </div>
                     ))}
             </div>
