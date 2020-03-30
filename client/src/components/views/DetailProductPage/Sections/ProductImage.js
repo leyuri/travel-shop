@@ -11,12 +11,15 @@ function ProductImage(props) {
             let images = [];
             //여러개의 이미지를 넣어야 하기 때문에 배열
 
-            let src= process.env.NODE_ENV === 'development' ? 
-            `http://localhost:5000/${item}`
-            : `https://salty-badlands-71011.herokuapp.com/${item}`
-        
+
         
             props.detail.images && props.detail.images.map(item => {
+
+                let src= process.env.NODE_ENV === 'development' ? 
+                `http://localhost:5000/${item}`
+                : `https://salty-badlands-71011.herokuapp.com/${item}`
+            
+
                 images.push({
                     original: src,
                     thumbnail: src

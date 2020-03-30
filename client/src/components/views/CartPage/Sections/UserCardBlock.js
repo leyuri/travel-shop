@@ -12,7 +12,6 @@ const UserCardBlock = (props) => {
             `http://localhost:5000/${image}`
             : `https://salty-badlands-71011.herokuapp.com/${image}`
         
-        
             return src
         }
     }
